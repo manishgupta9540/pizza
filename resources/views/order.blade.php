@@ -239,7 +239,6 @@
                 const price = checkbox.data('price-' + size);
                 $(this).text(price);
             });
-
             $.ajax({
                 url: '{{ route("calculate.price") }}',
                 method: 'POST',
