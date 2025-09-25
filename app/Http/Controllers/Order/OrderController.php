@@ -15,7 +15,7 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        
+        // dd($request->all());
         $request->validate([
             'customer_name' => 'required|string|max:255',
             'customer_email' => 'required|email',
@@ -31,20 +31,21 @@ class OrderController extends Controller
             $totalAmount = 0;
             $orderItems = [];
             $pizzas =$request->pizzas ?? [];
+            $toppingsPrice = 0;
             foreach ($pizzas as $pizzaData) {
                 $pizza = Pizza::find($pizzaData['pizza_id']);
                 $basePrice = $pizza->getPriceBySize($pizzaData['size']);
-                $toppingsPrice = 0;
+                
                 if (isset($pizzaData['toppings'])) {
                     foreach ($pizzaData['toppings'] as $toppingId) {
                         $topping = Topping::find($toppingId);
-                        $toppingsPrice += $topping->getPriceBySize($pizzaData['size']);
+                        $toppingsPrice = $topping->getPriceBySize($pizzaData['size']);
                     }
                 }
-    
+                // dd($basePrice,$toppingsPrice);
                 $itemTotal = $basePrice + $toppingsPrice;
                 $totalAmount += $itemTotal;
-    
+                // dd($totalAmount);
                 $orderItems[] = [
                     'pizza' => $pizza,
                     'size' => $pizzaData['size'],
@@ -54,7 +55,7 @@ class OrderController extends Controller
                     'item_total' => $itemTotal
                 ];
             }
-    
+            
             // Create order
             $order = Order::create([
                 'total_amount' => $totalAmount,

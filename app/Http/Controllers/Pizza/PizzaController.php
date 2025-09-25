@@ -13,7 +13,6 @@ class PizzaController extends Controller
     {
         $pizzas = Pizza::with('prices')->get();
         $toppings = Topping::with('prices')->get();
-        
         return view('order', compact('pizzas', 'toppings'));
     }
       public function calculatePrice(Request $request)
