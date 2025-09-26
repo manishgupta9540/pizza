@@ -36,23 +36,23 @@ class OrderController extends Controller
                 $pizza     = Pizza::findOrFail($pizzaData['pizza_id']);
                 // dd($pizza);
                 $basePrice = $pizza->getPriceBySize($pizzaData['size']);
-
+                // dd($basePrice);
                 $toppingsPrice = 0;
-                $selectedToppings = $pizzaData['toppings'] ?? [];
+                $selectedToppings = array_unique($pizzaData['toppings'] ?? []);
 
                 if (!empty($selectedToppings)) {
                     foreach ($selectedToppings as $toppingId) {
                         $topping = Topping::findOrFail($toppingId);
-                        $toppingsPrice = $topping->getPriceBySize($pizzaData['size']); 
+                        $toppingsPrice += $topping->getPriceBySize($pizzaData['size']); 
                     }
                 }
 
-                // dd($toppingsPrice,$basePrice)
+                // dd($toppingsPrice);
 
                 $itemTotal   = $basePrice + $toppingsPrice;
                 $totalAmount += $itemTotal;
 
-                // dd($totalAmount)
+                // dd($totalAmount);
 
                 $orderItems[] = [
                     'pizza'          => $pizza,
