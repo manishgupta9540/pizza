@@ -11,27 +11,32 @@ class PizzaController extends Controller
 {
     public function index()
     {
-        $pizzas = Pizza::with('prices')->get();
-        $toppings = Topping::with('prices')->get();
-        return view('order', compact('pizzas', 'toppings'));
+        $pizzas     = Pizza::with('pizzaprices')->get();
+        $toppings   = Topping::with('pizzaprices')->get();
+        return view('pizza.index', compact('pizzas', 'toppings'));
     }
-      public function calculatePrice(Request $request)
+
+
+    public function amountCalculate(Request $request)
     {
         $request->validate([
             'pizza_id' => 'required|exists:pizzas,id',
             'size' => 'required|in:small,medium,large',
             'toppings' => 'array'
         ]);
+
         try {
             $pizza = Pizza::findOrFail($request->pizza_id);
             $basePrice = $pizza->getPriceBySize($request->size);
             $toppingsPrice = 0;
+
             if ($request->toppings) {
                 foreach ($request->toppings as $toppingId) {
                     $topping = Topping::find($toppingId);
                     $toppingsPrice += $topping->getPriceBySize($request->size);
                 }
             }
+
             $totalPrice = $basePrice + $toppingsPrice;
     
             return response()->json([
@@ -39,6 +44,7 @@ class PizzaController extends Controller
                 'toppings_price' => $toppingsPrice,
                 'total_price' => $totalPrice
             ]);
+            
         } catch (\Throwable $th) {
             return response()->json([
                 'error'=>$th->getMessage(),

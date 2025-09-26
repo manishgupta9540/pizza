@@ -22,7 +22,8 @@ use App\Http\Controllers\Order\OrderController;
 
 
 
-Route::get('/', [PizzaController::class, 'index'])->name('order.form');
+Route::get('/', [PizzaController::class,'index']);
 
-Route::post('/calculate-price', [PizzaController::class, 'calculatePrice'])->name('calculate.price');
-Route::post('/place-order', [OrderController::class, 'store'])->name('order.store');
+Route::post('/amountcalculate',[PizzaController::class,'amountCalculate'])->name('amountcalculate');
+
+Route::post('/pizza-order',[OrderController::class,'pizzaOrder'])->name('pizza-order');

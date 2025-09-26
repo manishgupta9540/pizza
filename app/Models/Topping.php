@@ -12,14 +12,14 @@ class Topping extends Model
     protected $fillable = ['name'];
 
     
-    public function prices()
+    public function pizzaprices()
     {
         return $this->hasMany(ToppingPrice::class);
     }
 
     public function getPriceBySize($pizzaSize)
     {
-        return $this->prices()->where('pizza_size', $pizzaSize)->first()->price ?? 0;
+        return $this->pizzaprices()->where('pizza_size', $pizzaSize)->first()->price ?? 0;
     }
 
 

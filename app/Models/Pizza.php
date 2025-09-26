@@ -12,14 +12,14 @@ class Pizza extends Model
     protected $fillable = ['name'];
 
 
-    public function prices()
+    public function pizzaprices()
     {
         return $this->hasMany(PizzaSize::class);
     }
 
     public function getPriceBySize($size)
     {
-        return $this->prices()->where('size', $size)->first()->price ?? 0;
+        return $this->pizzaprices()->where('size', $size)->first()->price ?? 0;
     }
     
 }

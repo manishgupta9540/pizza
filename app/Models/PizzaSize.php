@@ -10,4 +10,6 @@ class PizzaSize extends Model
     use HasFactory;
 
     protected $fillable = ['pizza_id', 'size', 'price'];
+
+    
 }
