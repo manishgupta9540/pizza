@@ -26,6 +26,7 @@ class PizzaController extends Controller
         ]);
 
         try {
+            
             $pizza = Pizza::findOrFail($request->pizza_id);
             $basePrice = $pizza->getPriceBySize($request->size);
             $toppingsPrice = 0;

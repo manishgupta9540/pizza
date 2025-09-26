@@ -13,8 +13,7 @@
 
         <form id="orderForm">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            
-            <!-- Customer Details -->
+          
             <div class="card mb-4">
                 <div class="card-header">
                     <h5>Customer Information</h5>
@@ -31,7 +30,6 @@
                 </div>
             </div>
 
-            <!-- Pizza Items -->
             <div id="pizzasContainer">
                 <div class="pizza-item card mb-3">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -73,13 +71,7 @@
                                 <div class="toppings-container">
                                     @foreach($toppings as $top)
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input topping-checkbox" 
-                                                   type="checkbox" 
-                                                   name="pizzas[0][toppings][]" 
-                                                   value="{{ $top->id }}" 
-                                                   data-price-small="{{ $top->getPriceBySize('small') }}" 
-                                                   data-price-medium="{{ $top->getPriceBySize('medium') }}" 
-                                                   data-price-large="{{ $top->getPriceBySize('large') }}">
+                                            <input class="form-check-input topping-checkbox" type="checkbox" name="pizzas[0][toppings][]" value="{{ $top->id }}" data-price-small="{{ $top->getPriceBySize('small') }}" data-price-medium="{{ $top->getPriceBySize('medium') }}" data-price-large="{{ $top->getPriceBySize('large') }}">
                                             <label class="form-check-label">
                                                 {{ $top->name }} (₹<span class="topping-price">{{ $top->getPriceBySize('small') }}</span>)
                                             </label>
