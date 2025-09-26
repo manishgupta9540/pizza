@@ -86,7 +86,6 @@
 
             <button type="button" id="addPizza" class="btn btn-secondary mb-4">Add Another Pizza</button>
 
-            <!-- Order Summary -->
             <div class="card">
                 <div class="card-header">
                     <h5>Order Summary</h5>
@@ -100,6 +99,7 @@
             </div>
         </form>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
