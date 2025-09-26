@@ -64,7 +64,6 @@ class OrderController extends Controller
                 ];
             }
 
-            // Order create
             $order = Order::create([
                 'customer_name'    => $request->customer_name,
                 'customer_email'   => $request->customer_email,
@@ -74,7 +73,6 @@ class OrderController extends Controller
                 'status'           => 'pending'
             ]);
 
-            // Order items create
             foreach ($orderItems as $item) {
                 $orderItem = OrderItem::create([
                     'order_id'    => $order->id,
